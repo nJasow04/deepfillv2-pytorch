@@ -5,14 +5,11 @@ import torchvision.transforms as T
 
 
 parser = argparse.ArgumentParser(description='Test inpainting')
-parser.add_argument("--image", type=str,
-                    default="examples/inpaint/case1.png", help="path to the image file")
-parser.add_argument("--mask", type=str,
-                    default="examples/inpaint/case1_mask.png", help="path to the mask file")
+parser.add_argument("--image", type=str, default="examples/inpaint/case1.png", help="path to the image file")
+parser.add_argument("--mask", type=str, default="examples/inpaint/case1_mask.png", help="path to the mask file")
 parser.add_argument("--out", type=str,
                     default="examples/inpaint/case1_out_test.png", help="path for the output file")
-parser.add_argument("--checkpoint", type=str,
-                    default="pretrained/states_tf_places2.pth", help="path to the checkpoint file")
+parser.add_argument("--checkpoint", type=str, default="pretrained/states_tf_places2.pth", help="path to the checkpoint file")
 
 
 def main():
@@ -37,8 +34,8 @@ def main():
     generator.load_state_dict(generator_state_dict, strict=True)
 
     # load image and mask
-    image = Image.open(args.image)
-    mask = Image.open(args.mask)
+    image = Image.open(args.image).resize((512, 512), 0)
+    mask = Image.open(args.mask).resize((512, 512), 0)
 
     # prepare input
     image = T.ToTensor()(image)
